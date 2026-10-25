@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Tool — Ping (VULNERABLE)</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+    .banner { background: #7f1d1d; color: #fff; padding: .6rem 1rem; border-radius: 6px; font-weight: 600; }
+    label { display: block; margin: 1rem 0 .25rem; font-weight: 600; }
+    input[type=text] { width: 100%; padding: .55rem; font-size: 1rem; box-sizing: border-box; }
+    button { margin-top: 1rem; padding: .55rem 1.2rem; font-size: 1rem; cursor: pointer; }
+    pre { background: #111; color: #0f0; padding: 1rem; border-radius: 6px; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
+    .cmd { color: #9ca3af; }
+    .err { color: #fca5a5; }
+    h1 { font-size: 1.4rem; }
+  </style>
+</head>
+<body>
+  <p class="banner">⚠ VULNERABLE build — closed lab only. Input is passed to a shell.</p>
+  <h1>Network Admin Tool — Ping a host</h1>
+  <form method="POST" action="/ping">
+    <label for="host">Hostname or IP</label>
+    <input type="text" id="host" name="host" value="<%= host %>" placeholder="127.0.0.1" autofocus />
+    <button type="submit">Ping</button>
+  </form>
+
+  <% if (command) { %>
+    <p class="cmd">Command executed: <code><%= command %></code></p>
+  <% } %>
+
+  <% if (output) { %>
+    <h2>Output</h2>
+    <pre><%= output %></pre>
+  <% } %>
+
+  <% if (error) { %>
+    <h2>Errors</h2>
+    <pre class="err"><%= error %></pre>
+  <% } %>
+</body>
+</html>

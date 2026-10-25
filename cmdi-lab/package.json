@@ -1,0 +1,22 @@
+{
+  "name": "cmdi-lab",
+  "version": "1.0.0",
+  "description": "A self-contained teaching lab demonstrating OS command injection and its mitigation.",
+  "private": true,
+  "scripts": {
+    "start": "node vulnerable/server.js",
+    "vuln": "node vulnerable/server.js",
+    "secure": "node secure/server.js",
+    "attack:chaining": "node attacks/01-command-chaining.js",
+    "attack:substitution": "node attacks/02-command-substitution.js",
+    "attack:blind": "node attacks/03-blind-time-based.js",
+    "attack:exfil": "node attacks/04-data-exfil-readfile.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2"
+  }
+}
