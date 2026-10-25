@@ -95,28 +95,27 @@ vulnerable path the `HOST` value is *inside* a string the shell parses.
 
 ```mermaid
 flowchart TB
-    subgraph V[VULNERABLE path]
+    subgraph V["VULNERABLE path"]
       direction TB
       V1["host = '127.0.0.1; cat /etc/passwd'"]
       V2["cmd = 'ping -c 1 ' + host"]
-      V3["exec(cmd)  →  /bin/sh -c cmd"]
-      V4["shell sees ';' → runs TWO commands:\nping ... AND cat /etc/passwd"]
+      V3["exec(cmd) -> /bin/sh -c cmd"]
+      V4["shell sees ';' -> runs TWO commands:<br/>ping ... AND cat /etc/passwd"]
       V1 --> V2 --> V3 --> V4
     end
-    subgraph SEC[SECURE path]
+    subgraph SEC["SECURE path"]
       direction TB
       S1["host = '127.0.0.1; cat /etc/passwd'"]
-      S2["allowlist regex → REJECT (has ';', space, '/')"]
+      S2["allowlist regex -> REJECT (has ';', space, '/')"]
       S3["(even if it passed) execFile('ping', ['-c','1', host])"]
-      S4["no shell: host is ONE literal argv entry →\nping fails to resolve it, nothing else runs"]
+      S4["no shell: host is ONE literal argv entry -><br/>ping fails to resolve it, nothing else runs"]
       S1 --> S2
-      S2 -.->|request stops with 400| X[invalid host]
+      S2 -.->|"request stops with 400"| X["invalid host"]
       S1 --> S3 --> S4
     end
     style V fill:#3f1d1d,color:#fff
     style SEC fill:#14311d,color:#fff
 ```
-
 ---
 
 ## 5. Setup & run
